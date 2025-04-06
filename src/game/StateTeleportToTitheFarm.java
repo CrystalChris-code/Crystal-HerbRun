@@ -15,6 +15,7 @@ public class StateTeleportToTitheFarm {
     };
 
     public void execute() throws InterruptedException {
+        MethodProvider.sleep(3000);
 
         if (script.getWidgets().interact(548,54,"Grouping")){
             script.getWidgets().interact(548,54,"Grouping");
@@ -92,6 +93,8 @@ public class StateTeleportToTitheFarm {
             script.getWidgets().interact(76,32,"Teleport to Tithe Farm");
             MethodProvider.sleep(20000);
         }
+
+
 
     }
 }

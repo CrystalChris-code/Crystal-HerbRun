@@ -30,6 +30,12 @@ public class StateNoteHerbs {
                         } else {
                             script.log("Tool Leprechaun ikke fundet!");
                         }
+
+                        if (script.getDialogues().isPendingContinuation()) {
+                            script.getDialogues().completeDialogue();
+                            MethodProvider.sleep(3000); // kort pause, så dialogen opdaterer
+                        }
+
                     }
                     break;
                 }

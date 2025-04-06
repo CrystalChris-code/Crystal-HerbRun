@@ -37,7 +37,7 @@ public class StatePlantHerbs {
             script.getInventory().getItem(seedName).interact("Use");
             MethodProvider.sleep(1000);
             herbpatch.interact("Use");
-            MethodProvider.sleep(1000);
+            MethodProvider.sleep(250);
         } else {
             script.log("No " + seedName + " found in inventory!");
         }

@@ -4,10 +4,7 @@ import game.*;
 import data.*;
 import org.osbot.MB;
 import org.osbot.core.AbstractMethodProvider;
-import org.osbot.rs07.script.RandomEvent;
-import org.osbot.rs07.script.RandomSolver;
-import org.osbot.rs07.script.Script;
-import org.osbot.rs07.script.ScriptManifest;
+import org.osbot.rs07.script.*;
 import data.HerbTypes;
 import gui.HerbGuiHandler; // Import the GUI handler
 import data.CompostTypes;
@@ -44,6 +41,7 @@ public class PassiveHerbFarmer extends Script {
     private StateDiseasedHerbs stateDiseasedHerbs;
     private BreakManager breakManager;
     private StateTeleportToTitheFarm stateTeleportToTitheFarm;
+    private StateWalkToHosidius stateWalkToHosidius;
     private boolean hasHarvested = false;
     private boolean hasComposted = false;
 
@@ -77,12 +75,12 @@ public class PassiveHerbFarmer extends Script {
         stateRestock = new StateRestock(this, selectedCompost);
         stateDiseasedHerbs = new StateDiseasedHerbs(this);
         stateTeleportToTitheFarm = new StateTeleportToTitheFarm(this);
+        stateWalkToHosidius = new StateWalkToHosidius(this);
 
     }
 
     @Override
     public int onLoop() throws InterruptedException {
-        /*
 
         stateTeleportToArdougne.execute();
         stateDeadHerbs.execute();
@@ -120,14 +118,21 @@ public class PassiveHerbFarmer extends Script {
         stateNoteHerbs.execute();
         stateDropWeeds.execute();
 
+        stateTeleportToTitheFarm.execute();
+        stateWalkToHosidius.execute();
+        stateDeadHerbs.execute();
+        stateDiseasedHerbs.execute();
+        stateHarvestHerbs.execute();
+        statePlantHerbs.execute();
+        stateCompostHerbs.execute();
+        stateNoteHerbs.execute();
+        stateDropWeeds.execute();
+
         stateTeleportToVarrock.execute();
         stateRestock.execute();
         breakManager.activateBreakFor(90 * 60 * 1000);
         sleep(2500);
 
-         */
-
-        stateTeleportToTitheFarm.execute();
 
         return random(1000, 2000);
     }
