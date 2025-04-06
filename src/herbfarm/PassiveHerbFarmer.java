@@ -43,6 +43,7 @@ public class PassiveHerbFarmer extends Script {
     private StateRestock stateRestock;
     private StateDiseasedHerbs stateDiseasedHerbs;
     private BreakManager breakManager;
+    private StateTeleportToTitheFarm stateTeleportToTitheFarm;
     private boolean hasHarvested = false;
     private boolean hasComposted = false;
 
@@ -75,11 +76,14 @@ public class PassiveHerbFarmer extends Script {
         stateNoteHerbs = new StateNoteHerbs(this);
         stateRestock = new StateRestock(this, selectedCompost);
         stateDiseasedHerbs = new StateDiseasedHerbs(this);
+        stateTeleportToTitheFarm = new StateTeleportToTitheFarm(this);
 
     }
 
     @Override
     public int onLoop() throws InterruptedException {
+        /*
+
         stateTeleportToArdougne.execute();
         stateDeadHerbs.execute();
         stateDiseasedHerbs.execute();
@@ -120,6 +124,10 @@ public class PassiveHerbFarmer extends Script {
         stateRestock.execute();
         breakManager.activateBreakFor(90 * 60 * 1000);
         sleep(2500);
+
+         */
+
+        stateTeleportToTitheFarm.execute();
 
         return random(1000, 2000);
     }

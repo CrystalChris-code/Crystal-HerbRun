@@ -13,10 +13,10 @@ public class StateTeleportToPhasmatys {
     }
 
     public void execute() throws InterruptedException {
-        String teleportItemName = "Fenkenstrain's castle teleport";
+        String teleportItemName = "Ectophial";
         if (script.getInventory().contains(teleportItemName)) {
             script.log("Using " + teleportItemName);
-            script.getInventory().getItem(teleportItemName).interact("Break");
+            script.getInventory().getItem(teleportItemName).interact("Empty");
 
             MethodProvider.sleep(5000);
 
