@@ -10,10 +10,6 @@ public class StateTeleportToTitheFarm {
         this.script = script;
     }
 
-    private static final String[] WIDGET_ACTIONS = {
-            "Grouping", "Chat-Channel", "Your Clan", "View another clan"
-    };
-
     public void execute() throws InterruptedException {
         MethodProvider.sleep(3000);
 

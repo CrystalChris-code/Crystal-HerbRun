@@ -117,7 +117,7 @@ public class PassiveHerbFarmer extends Script {
         stateCompostHerbs.execute();
         stateNoteHerbs.execute();
         stateDropWeeds.execute();
-
+/*
         stateTeleportToTitheFarm.execute();
         stateWalkToHosidius.execute();
         stateDeadHerbs.execute();
@@ -127,6 +127,9 @@ public class PassiveHerbFarmer extends Script {
         stateCompostHerbs.execute();
         stateNoteHerbs.execute();
         stateDropWeeds.execute();
+
+
+ */
 
         stateTeleportToVarrock.execute();
         stateRestock.execute();
