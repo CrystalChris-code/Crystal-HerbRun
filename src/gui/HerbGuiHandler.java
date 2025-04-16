@@ -1,7 +1,7 @@
 package gui;
 
-import data.HerbTypes;
-import data.CompostTypes;
+import data.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 public class HerbGuiHandler {
     private HerbTypes selectedHerb;
     private CompostTypes selectedCompost;
+    private LogTypes selectedLogs;
+    private BirdhouseSeedTypes selectedSeed;
 
     public HerbGuiHandler() {
         createGui();
@@ -17,7 +19,7 @@ public class HerbGuiHandler {
 
     private void createGui() {
         JFrame frame = new JFrame("Select Herb Type");
-        frame.setSize(300, 150);
+        frame.setSize(250, 200);
         frame.setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -28,12 +30,22 @@ public class HerbGuiHandler {
         JLabel compostlabel = new JLabel("Choose compost");
         JComboBox<CompostTypes> compostDropdown = new JComboBox<>(CompostTypes.values());
 
+        JLabel loglabel = new JLabel("Choose birdhouse");
+        JComboBox<LogTypes> logDropdown = new JComboBox<>(LogTypes.values());
+
+        JLabel seedlabel = new JLabel("Choose a birdhouse seed");
+        JComboBox<BirdhouseSeedTypes> seedDropdown = new JComboBox<>(BirdhouseSeedTypes.values());
+
         JButton startButton = new JButton("Start Script");
 
         panel.add(label);
         panel.add(herbDropdown);
         panel.add(compostlabel);
         panel.add(compostDropdown);
+        panel.add(loglabel);
+        panel.add(logDropdown);
+        panel.add(seedlabel);
+        panel.add(seedDropdown);
         panel.add(startButton);
 
         frame.add(panel, BorderLayout.CENTER);
@@ -45,12 +57,14 @@ public class HerbGuiHandler {
             public void actionPerformed(ActionEvent e) {
                 selectedHerb = (HerbTypes) herbDropdown.getSelectedItem();
                 selectedCompost = (CompostTypes) compostDropdown.getSelectedItem();
+                selectedLogs = (LogTypes) logDropdown.getSelectedItem();
+                selectedSeed = (BirdhouseSeedTypes) seedDropdown.getSelectedItem();
                 frame.dispose(); // Close the GUI after selecting
             }
         });
 
         // Wait until the user selects a seed
-        while (selectedHerb == null || selectedCompost == null) {
+        while (selectedHerb == null || selectedCompost == null || selectedLogs == null || selectedSeed == null) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
@@ -65,6 +79,14 @@ public class HerbGuiHandler {
 
     public CompostTypes getSelectedCompost() {
         return selectedCompost;
+    }
+
+    public LogTypes getSelectedLogs() {
+        return selectedLogs;
+    }
+
+    public BirdhouseSeedTypes getSelectedSeed() {
+        return selectedSeed;
     }
 
 }

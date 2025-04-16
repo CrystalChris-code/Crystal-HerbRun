@@ -26,6 +26,9 @@ import javax.swing.plaf.nimbus.State;
 public class PassiveHerbFarmer extends Script {
 
     private final HerbState currentState = HerbState.PLANT_HERBS;
+    private StateCreateBirdhouse stateCreateBirdhouse;
+    private StatePlantBirdhouse statePlantBirdhouse;
+    private StateSeedBirdhouse stateSeedBirdhouse;
     private StatePlantHerbs statePlantHerbs;
     private StateCompostHerbs stateCompostHerbs;
     private StateHarvestHerbs stateHarvestHerbs;
@@ -57,12 +60,19 @@ public class PassiveHerbFarmer extends Script {
         HerbGuiHandler gui = new HerbGuiHandler();
         HerbTypes selectedHerb = gui.getSelectedHerb();
         CompostTypes selectedCompost = gui.getSelectedCompost();
+        LogTypes selectedLogType = gui.getSelectedLogs();
+        BirdhouseSeedTypes selectedSeed = gui.getSelectedSeed();
 
         log("Selected Seed: " + selectedHerb.getSeedName());
         log("Selected Compost: " + selectedCompost.getItemName());
+        log("Selected Birdhouse" + selectedLogType.getLogName());
+        log("Selected Seed" + selectedSeed.getBirdhouseSeedName());
 
         stateCompostHerbs = new StateCompostHerbs(this, selectedCompost);
         statePlantHerbs = new StatePlantHerbs(this, selectedHerb);
+        stateCreateBirdhouse = new StateCreateBirdhouse(this, selectedLogType);
+        stateSeedBirdhouse = new StateSeedBirdhouse(this,selectedSeed);
+        statePlantBirdhouse = new StatePlantBirdhouse(this);
         stateHarvestHerbs = new StateHarvestHerbs(this);
         stateDeadHerbs = new StateDeadHerbs(this);
         stateTeleportToArdougne = new StateTeleportToArdougne(this);
@@ -81,6 +91,15 @@ public class PassiveHerbFarmer extends Script {
 
     @Override
     public int onLoop() throws InterruptedException {
+/*
+        stateTeleportToTitheFarm.execute();
+        stateDeadHerbs.execute();
+        stateDiseasedHerbs.execute();
+        stateHarvestHerbs.execute();
+        statePlantHerbs.execute();
+        stateCompostHerbs.execute();
+        stateNoteHerbs.execute();
+        stateDropWeeds.execute();
 
         stateTeleportToArdougne.execute();
         stateDeadHerbs.execute();
@@ -117,25 +136,15 @@ public class PassiveHerbFarmer extends Script {
         stateCompostHerbs.execute();
         stateNoteHerbs.execute();
         stateDropWeeds.execute();
-/*
-        stateTeleportToTitheFarm.execute();
-        stateWalkToHosidius.execute();
-        stateDeadHerbs.execute();
-        stateDiseasedHerbs.execute();
-        stateHarvestHerbs.execute();
-        statePlantHerbs.execute();
-        stateCompostHerbs.execute();
-        stateNoteHerbs.execute();
-        stateDropWeeds.execute();
-
-
- */
 
         stateTeleportToVarrock.execute();
         stateRestock.execute();
         breakManager.activateBreakFor(90 * 60 * 1000);
         sleep(2500);
 
+ */
+
+        statePlantBirdhouse.execute();
 
         return random(1000, 2000);
     }
