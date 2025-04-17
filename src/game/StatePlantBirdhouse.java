@@ -1,6 +1,7 @@
 package game;
 
 import data.LogTypes;
+import org.osbot.Me;
 import org.osbot.rs07.api.model.Item;
 import org.osbot.rs07.api.model.RS2Object;
 import org.osbot.rs07.script.MethodProvider;
@@ -9,16 +10,24 @@ import org.osbot.rs07.script.Script;
 public class StatePlantBirdhouse {
 
     private final Script script;
-
-    private final String BIRDHOUSE_NAME = "Bird house"; // Adjust this to the correct one
-    private final String BIRDHOUSE_SPOT_NAME = "Space";
+    private final String[] BIRDHOUSE_TYPES = {
+            "Bird house",
+            "Oak bird house",
+            "Willow bird house",
+            "Teak bird house",
+            "Maple bird house",
+            "Mahogany bird house",
+            "Yew bird house",
+            "Magic bird house",
+            "Redwood bird house"
+    };
 
     public StatePlantBirdhouse(Script script) {
         this.script = script;
     }
 
     public void execute() throws InterruptedException {
-        Item birdhouseItem = script.getInventory().getItem("Bird house");
+        Item birdhouseItem = script.getInventory().getItem(BIRDHOUSE_TYPES);
         RS2Object birdhouseSpot = script.getObjects().closest("Space");
 
         if (birdhouseItem != null && birdhouseSpot != null) {
@@ -41,7 +50,7 @@ public class StatePlantBirdhouse {
 
                         // Optional: wait until item is no longer in inventory
                         wait = 0;
-                        while (script.getInventory().contains("Bird house") && wait < 3000) {
+                        while (script.getInventory().contains(BIRDHOUSE_TYPES) && wait < 3000) {
                             MethodProvider.sleep(200);
                             wait += 200;
                         }
@@ -53,6 +62,7 @@ public class StatePlantBirdhouse {
         } else {
             script.log("Bird house item or Space object not found.");
         }
+        MethodProvider.sleep(1500);
     }
 
 }

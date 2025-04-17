@@ -45,8 +45,8 @@ public enum BirdhouseSeedTypes {
 
     private final String BirdhouseSeedName;
 
-    BirdhouseSeedTypes(String logName) {
-        this.BirdhouseSeedName = getBirdhouseSeedName();
+    BirdhouseSeedTypes(String seedName) {
+        this.BirdhouseSeedName = seedName;
     }
 
     public String getBirdhouseSeedName() {

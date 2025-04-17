@@ -19,7 +19,7 @@ public class HerbGuiHandler {
 
     private void createGui() {
         JFrame frame = new JFrame("Select Herb Type");
-        frame.setSize(250, 200);
+        frame.setSize(275, 200);
         frame.setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 

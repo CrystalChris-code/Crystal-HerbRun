@@ -1,7 +1,7 @@
 package game;
 
 import data.CompostTypes;
-import org.osbot.rs07.api.model.Item;
+import data.HerbTypes;
 import org.osbot.rs07.script.MethodProvider;
 import org.osbot.rs07.script.Script;
 import org.osbot.rs07.utility.ConditionalSleep;
@@ -9,15 +9,16 @@ import org.osbot.rs07.utility.ConditionalSleep;
 public class StateRestock {
     private final Script script;
     private final CompostTypes compostType;
+    private final HerbTypes selectedHerb;
 
-    // Opdateret constructor med CompostTypes som parameter
-    public StateRestock(Script script, CompostTypes compostType) {
+    public StateRestock(Script script, CompostTypes compostType, HerbTypes selectedHerb) {
         this.script = script;
         this.compostType = compostType;
+        this.selectedHerb = selectedHerb;
     }
 
     public void execute() throws InterruptedException {
-        // Åbn banken
+        // Åbn bank
         if (!script.getBank().isOpen()) {
             script.getBank().open();
             new ConditionalSleep(5000, 250) {
@@ -33,25 +34,28 @@ public class StateRestock {
             return;
         }
 
-        // Depositér alle buckets
-        for (Item item : script.getInventory().getItems()) {
-            if (item != null && item.getName() != null && item.getName().toLowerCase().contains("bucket")) {
-                script.log("Depositing bucket: " + item.getName());
-                script.getBank().deposit(item.getName(), 0); // depositér alle forekomster
-                MethodProvider.sleep(1000);
-            }
-        }
+        // Depositér alt
+        script.getBank().depositAll();
+        MethodProvider.sleep(500);
 
-        // Depositér alle items med "Grimy" i navnet
-        for (Item item : script.getInventory().getItems()) {
-            if (item != null && item.getName() != null && item.getName().toLowerCase().contains("grimy")) {
-                script.log("Depositing grimy herb: " + item.getName());
-                script.getBank().deposit(item.getName(), 0);
-                MethodProvider.sleep(1000);
-            }
-        }
+        // Step 1: Frø
+        withdrawAll(selectedHerb.getSeedName(), "seeds");
 
-        // Tjek for compostType
+        // Step 2: Tools
+        withdrawItem("Seed dibber", 1);
+        withdrawItem("Spade", 1);
+        withdrawItem("Rake", 1);
+
+        // Step 3: Teleports
+        withdrawAll("Camelot teleport", "Camelot teleport");
+        withdrawAll("Ardougne teleport", "Ardougne teleport");
+        withdrawAll("Falador teleport", "Falador teleport");
+        withdrawAll("Varrock teleport", "Varrock teleport");
+
+        // Step 4: Ectophial
+        withdrawItem("Ectophial", 1);
+
+        // Step 5: Compost – beholdes som det er
         if (compostType == null) {
             script.log("Compost type er null. Restock springes over.");
         } else {
@@ -78,5 +82,25 @@ public class StateRestock {
 
         // Luk banken
         script.getBank().close();
+        MethodProvider.sleep(500);
+    }
+
+    private void withdrawItem(String name, int amount) throws InterruptedException {
+        if (script.getBank().contains(name)) {
+            script.getBank().withdraw(name, amount);
+            MethodProvider.sleep(300);
+        } else {
+            script.log("Mangler item i bank: " + name);
+        }
+    }
+
+    private void withdrawAll(String name, String label) throws InterruptedException {
+        if (script.getBank().contains(name)) {
+            script.getBank().withdrawAll(name);
+            MethodProvider.sleep(300);
+            script.log("Withdrew all " + label);
+        } else {
+            script.log("Mangler " + label + " i bank.");
+        }
     }
 }
